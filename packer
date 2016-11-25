@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+[ -f /etc/default/packer ] && source /etc/default/packer
+
 [[ $PACMAN ]] || PACMAN="pacman"
 
 # set tmpfile stuff, clean tmpdir
