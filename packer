@@ -291,7 +291,14 @@ aurinstall() {
   if . "$dir/$1/PKGBUILD" &>/dev/null && ! aurversionisnewer "$1" "$pkgver-$pkgrel"; then
     cd "$dir/$1"
   else
-    [[ -d "$dir" ]] && rm -rf "$dir"
+    if [[ -d "$dir" ]]; then
+      echo -ne "${COLOR5}:: ${COLOR1}$package Keep previous installation directory?${ENDCOLOR} [Y/n] "
+      if ! [[ $noconfirm ]]; then
+        proceed || rm -rf "$dir"
+      else
+        echo
+      fi
+    fi
     mkdir -p "$dir"
     cd "$dir"
     curl -Lfs "$(pkglink $1)" > "$1.tar.gz"
